@@ -18,9 +18,7 @@ let Content = (props)=> {
   return (
           <div className="Content">
             <h1>Table Title</h1>
-            <h2>
-                Its a long table {props.name}
-            </h2>
+            <input value={props.name} onChange={props.nameChangeHandler}/>
           </div>
         );
 };
@@ -28,7 +26,7 @@ let Content = (props)=> {
 
 class App extends Component {
   state = {name:'Mizan'};
-  onTitleChangeHandler = (event)=>{
+  onNameChangeHandler = (event)=>{
     let name = event.target.value;
     this.setState({name:name});
     
@@ -38,8 +36,8 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation/>
-        <Content name={this.state.name}/>
-        <input value={this.state.name} onChange={this.onTitleChangeHandler}/>
+        <Content name={this.state.name} nameChangeHandler={this.onNameChangeHandler.bind(this)}/>
+        <h1>{this.state.name}</h1>
       </div>
     );
   }
