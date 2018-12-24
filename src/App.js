@@ -1,15 +1,5 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <h1>Hello world</h1>
-//       </div>
-//     );
-//   }
-// }
 
 let Navigation = ()=> {
   return (
@@ -24,24 +14,35 @@ let Navigation = ()=> {
 };
 
 let Content = (props)=> {
-    console.log(props);
+    // console.log(props);
   return (
           <div className="Content">
             <h1>Table Title</h1>
-            <div>
+            <h2>
                 Its a long table {props.name}
-            </div>
+            </h2>
           </div>
         );
 };
 
-let App = ()=> {
-  return (
-          <div className="App">
-            <Navigation/>
-            <Content name="Mizan"/>
-          </div>
-        );
-};
+
+class App extends Component {
+  state = {name:'Mizan'};
+  onTitleChangeHandler = (event)=>{
+    let name = event.target.value;
+    this.setState({name:name});
+    
+  }
+  render() {
+    console.log("Rendering ",this.state);
+    return (
+      <div className="App">
+        <Navigation/>
+        <Content name={this.state.name}/>
+        <input value={this.state.name} onChange={this.onTitleChangeHandler}/>
+      </div>
+    );
+  }
+}
 
 export default App;
