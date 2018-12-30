@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 import './App.css';
+import { BrowserRouter, Route, Link } from "react-router-dom";
+
 
 let Navigation = ()=> {
   return (
           <div className="Nav">
             <ul>
-                <li>Home</li>
-                <li>About</li>
+                <li>
+                    <Link to="/">Root</Link>
+                </li>
+                <li>
+                <Link to="/content2">Go Content2</Link>
+                </li>
                 <li>Contact Us</li>
             </ul>
           </div>
@@ -14,11 +20,11 @@ let Navigation = ()=> {
 };
 
 let Content = (props)=> {
-    // console.log(props);
+    console.log(props);
   return (
           <div className="Content">
-            <h1>Table Title</h1>
-            <input value={props.name} onChange={props.nameChangeHandler}/>
+            <h1>{props.header}</h1>
+            {/* <input value={props.name} onChange={props.nameChangeHandler}/> */}
           </div>
         );
 };
@@ -34,11 +40,15 @@ class App extends Component {
   render() {
     console.log("Rendering ",this.state);
     return (
-      <div className="App">
-        <Navigation/>
-        <Content name={this.state.name} nameChangeHandler={this.onNameChangeHandler.bind(this)}/>
-        <h1>{this.state.name}</h1>
-      </div>
+      <BrowserRouter>
+            <div className="App">
+              <Navigation/>
+              <Route path="/" exact render={(props)=> <Content {...props} name={this.state.name} nameChangeHandler={this.onNameChangeHandler.bind(this)} header={'Root Page'}/>}/>
+              <Route path="/content2" render={(props)=> <Content {...props} name={this.state.name} nameChangeHandler={this.onNameChangeHandler.bind(this)} header={'Content 2'}/>}/>
+              <h1>{this.state.name}</h1>
+            </div>
+      </BrowserRouter>
+
     );
   }
 }
